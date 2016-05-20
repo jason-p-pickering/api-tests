@@ -1,7 +1,7 @@
 DHIS2 API System Test
 ==============
 
-Simple API Testing using Chakram.
+Simple API Testing using Chakram, initial spike only.
 
 Chakram allows you to write clear and comprehensive tests, ensuring JSON REST endpoints work correctly as you develop and in the future.
 http://dareid.github.io/chakram/
@@ -40,7 +40,7 @@ Executing system test
 $ ./run.sh
 ```
 
-Once your are done delete the containers
+Once you are done delete the containers.
 
 ```
 $ docker-compose down
