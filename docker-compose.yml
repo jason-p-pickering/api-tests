@@ -1,0 +1,21 @@
+version: '2'
+services:
+  database:
+    container_name: dhis2-database
+    image: postgres:9.5.3
+    environment:
+      POSTGRES_USER: dhis
+      POSTGRES_DB: dhis
+      POSTGRES_PASSWORD: dhis
+      PG_DATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+  web:
+    container_name: dhis2-web
+    image: pgracio/dhis2-web:latest
+    environment:
+      JAVA_OPTS: "-Xmx1024m -Xms4000m"
+    links:
+      - database
+    ports:
+      - "8085:8080"
