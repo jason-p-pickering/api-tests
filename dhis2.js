@@ -1,7 +1,9 @@
 var chakram = require('chakram'),
     expect = chakram.expect,
-    host = 'localhost',
-    port = '8085';
+    //host = 'localhost',
+    //port = '8085';
+    host = 'dhis2-web',
+    port = '8080';
 
 var authorization = {
     headers: {
@@ -11,7 +13,7 @@ var authorization = {
 };
 
 describe("DHIS2 - User Module - Create User", function () {
-
+    // TODO: the second time the test is executed it fails. Delete user if user exists before create?
     it("should create a new User", function () {
         var johnDoe = {
             "firstName": "John",

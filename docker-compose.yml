@@ -12,10 +12,20 @@ services:
       - "5432:5432"
   web:
     container_name: dhis2-web
-    image: pgracio/dhis2-web:latest
+    image: pgracio/dhis2-web:2.23-tomcat7-jre8
     environment:
       JAVA_OPTS: "-Xmx1024m -Xms4000m"
     links:
       - database
     ports:
       - "8085:8080"
+    depends_on:
+      - database
+    entrypoint: ./wait-for-it.sh -t 0 database:5432 --
+    command: catalina.sh run # https://github.com/docker/compose/issues/3140
+  system-test:
+    container_name: dhis2-system-test
+    image: pgracio/dhis2-system-test
+    depends_on:
+      - web
+    command: dockerize "-wait" "http://dhis2-web:8080" "-timeout" "120s" "mocha" "system-test/dhis2.js"

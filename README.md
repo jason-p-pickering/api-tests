@@ -9,8 +9,8 @@ http://dareid.github.io/chakram/
 Prerequisites
 -------------
 * [Install Docker](http://docs.docker.com/engine/installation/ "Documentation") 
-* [Install npm](http://https://docs.npmjs.com/getting-started/what-is-npm/ "Documentation") 
-* [Chakram Getting started](http://https://github.com/dareid/chakram#getting-started/ "Documentation") 
+* [Install npm](https://docs.npmjs.com/getting-started/what-is-npm/ "Documentation") 
+* [Chakram Getting started](https://github.com/dareid/chakram#getting-started/ "Documentation") 
 
 Execute
 -------------
