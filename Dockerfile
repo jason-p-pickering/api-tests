@@ -9,6 +9,9 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 ENV NODE_PATH /usr/local/lib/node_modules
 
-WORKDIR /dhis2
+WORKDIR /dhis2-api-system-test
 
-COPY dhis2.js system-test/
+COPY data data
+COPY modules modules
+COPY utils utils
+COPY run.sh run.sh
