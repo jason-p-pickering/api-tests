@@ -16,6 +16,33 @@ describe("DHIS2 API - User Module", function () {
         });
     });
 
+    describe("Update User", function () {
+        var response;
+
+        before(function () {
+            response = chakram.get(env.url + "/api/users?query=paulo", env.auth);
+            return response;
+        });
+
+        it("should update an existent User", function () {
+            expect(response).to.have.status(200);
+            expect(response).to.have.json('pager.total', 1);
+            expect(response).to.have.json('users[0].displayName', 'Paulo Grácio');
+
+            expect(response).to.have.json(function (json) {
+
+                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserUpdated, env.auth);
+
+                expect(updateResponse).to.have.status(200);
+                expect(updateResponse).not.to.have.header('non-existing-header');
+                expect(updateResponse).to.have.json('importCount.updated', 1);
+
+                return chakram.wait();
+            });
+            return chakram.wait();
+        });
+    });
+
     describe("Delete User", function () {
         var response;
 
