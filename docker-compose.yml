@@ -23,10 +23,3 @@ services:
       - database
     entrypoint: ./wait-for-it.sh -t 0 database:5432 --
     command: catalina.sh run # https://github.com/docker/compose/issues/3140
-  system-test:
-    container_name: dhis2-system-test
-    #image: pgracio/dhis2-system-test:0.0.1
-    build: .
-    depends_on:
-      - web
-    command: dockerize "-wait" "http://dhis2-web:8080" "-timeout" "120s" "./run.sh"

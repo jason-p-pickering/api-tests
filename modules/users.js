@@ -54,7 +54,7 @@ describe("DHIS2 API - User Module", function () {
         it("should delete an existent User", function () {
             expect(response).to.have.status(200);
             expect(response).to.have.json('pager.total', 1);
-            expect(response).to.have.json('users[0].displayName', data.testUser.firstName + " " + data.testUser.surname);
+            expect(response).to.have.json('users[0].displayName', data.testUserUpdated.firstName + " " + data.testUserUpdated.surname);
 
             expect(response).to.have.json(function (json) {
                 expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(200);
