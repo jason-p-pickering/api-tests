@@ -12,7 +12,7 @@ services:
       - "5432:5432"
   web:
     container_name: dhis2-web
-    image: pgracio/dhis2-web:2.23-tomcat7-jre8
+    image: pgracio/dhis2-web:trunk-tomcat7-jre8
     environment:
       JAVA_OPTS: "-Xmx1024m -Xms4000m"
     links:

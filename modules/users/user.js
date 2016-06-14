@@ -1,9 +1,10 @@
 var chakram = require('chakram'),
-    data = require('./../data/users'),
-    env = require('./../utils/env');
+    data = require('./../../data/users'),
+    env = require('./../../utils/env');
+
 expect = chakram.expect;
 
-describe("DHIS2 API - User Module", function () {
+describe("DHIS2 API - Users Module", function () {
     describe("Create User", function () {
         // TODO: the second time the test is executed it fails. Delete user if user exists before create?
         it("should create a new User", function () {
