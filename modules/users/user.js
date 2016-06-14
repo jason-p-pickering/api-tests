@@ -49,7 +49,6 @@ describe("DHIS2 API - Users Module", function () {
 
         before(function () {
             response = chakram.get(env.url + "/api/users?query=paulo", env.auth);
-            return response;
         });
 
         it("should delete an existent User", function () {
@@ -66,6 +65,25 @@ describe("DHIS2 API - Users Module", function () {
 
         it("should return 404 - Not Found, when deleting a User that doesn't exist", function () {
             expect(chakram.delete(env.url + "/api/users/invalidID", null, env.auth)).to.have.status(404);
+            return chakram.wait();
+        });
+    })
+
+    describe("Delete Admin User", function () {
+        var response;
+
+        before(function () {
+            response = chakram.get(env.url + "/api/users?query=admin", env.auth);
+        });
+
+        it("should delete the user", function () {
+            expect(response).to.have.status(200);
+            expect(response).to.have.json('pager.total', 1);
+
+            expect(response).to.have.json(function (json) {
+                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(200);
+                return chakram.wait();
+            });
             return chakram.wait();
         });
     })
