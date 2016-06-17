@@ -17,7 +17,7 @@ describe("DHIS2 API - Users Module", function () {
         });
     });
 
-    describe("Update User", function () {
+    describe("Update User displayName", function () {
         var response;
 
         before(function () {
@@ -57,7 +57,7 @@ describe("DHIS2 API - Users Module", function () {
             expect(response).to.have.json('users[0].displayName', data.testUserUpdated.firstName + " " + data.testUserUpdated.surname);
 
             expect(response).to.have.json(function (json) {
-                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(200);
+                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(204);
                 return chakram.wait();
             });
             return chakram.wait();
@@ -69,11 +69,11 @@ describe("DHIS2 API - Users Module", function () {
         });
     })
 
-    describe("Delete Admin User", function () {
+    describe("Delete System User", function () {
         var response;
 
         before(function () {
-            response = chakram.get(env.url + "/api/users?query=admin", env.auth);
+            response = chakram.get(env.url + "/api/users?query=system", env.auth);
         });
 
         it("should delete the user", function () {
