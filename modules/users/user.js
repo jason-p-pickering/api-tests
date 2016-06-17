@@ -1,6 +1,7 @@
 var chakram = require('chakram'),
     data = require('./../../data/users'),
-    env = require('./../../utils/env');
+    env = require('./../../utils/env'),
+    utils = require('./../../utils/utils');
 
 expect = chakram.expect;
 
@@ -18,12 +19,8 @@ describe("DHIS2 API - Users Module", function () {
     });
 
     describe("Authenticate User", function () {
-        var auth = 'Basic ' + new Buffer(data.testUser.userCredentials.username + ':'
-                + data.testUser.userCredentials.password).toString('base64');
-        var params = {headers: {'Authorization': auth}};
-
         it("should authenticate previously created User, correct credentials", function () {
-            var response = chakram.get(env.url + "/api/me", params);
+            var response = chakram.get(env.url + "/api/me", utils.buildParams(data.testUser));
             expect(response).to.have.status(200);
             return chakram.wait();
         });
@@ -57,22 +54,14 @@ describe("DHIS2 API - Users Module", function () {
     });
 
     describe("Authenticate User", function () {
-        var oldAuth = 'Basic ' + new Buffer(data.testUser.userCredentials.username + ':'
-                + data.testUser.userCredentials.password).toString('base64');
-        var oldParams = {headers: {'Authorization': oldAuth}, Accept: 'application/json'};
-
-        var auth = 'Basic ' + new Buffer(data.testUserUpdated.userCredentials.username + ':'
-                + data.testUserUpdated.userCredentials.password).toString('base64');
-        var params = {headers: {'Authorization': auth}};
-
         it("should authenticate updated User using new credentials", function () {
-            var response = chakram.get(env.url + "/api/me", params);
+            var response = chakram.get(env.url + "/api/me", utils.buildParams(data.testUserUpdated));
             expect(response).to.have.status(200);
             return chakram.wait();
         });
 
         it("should fail authentication for updated User using old credentials", function () {
-            var response = chakram.get(env.url + "/api/me", oldParams);
+            var response = chakram.get(env.url + "/api/me", utils.buildParams(data.testUser));
             expect(response).to.have.status(401);
             expect(response).to.have.header("content-type", "text/html;charset=utf-8");
             return chakram.wait();
@@ -87,15 +76,12 @@ describe("DHIS2 API - Users Module", function () {
             return response;
         });
 
-        it("should not be possible update the password with an invalid password", function () {
+        it("should not be possible to update the password with an invalid password (less than 8 characters).", function () {
             expect(response).to.have.status(200);
             expect(response).to.have.json('pager.total', 1);
 
             expect(response).to.have.json(function (json) {
-                var auth = 'Basic ' + new Buffer(data.testUserUpdated.userCredentials.username + ':'
-                        + data.testUserUpdated.userCredentials.password).toString('base64');
-                var params = {headers: {'Authorization': auth}};
-                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserInvalidPassword, params);
+                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserInvalidPassword, env.auth);
 
                 expect(updateResponse).to.have.status(200);
                 expect(updateResponse).not.to.have.header('non-existing-header');
