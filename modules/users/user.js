@@ -17,6 +17,18 @@ describe("DHIS2 API - Users Module", function () {
         });
     });
 
+    describe("Authenticate User", function () {
+        var auth = 'Basic ' + new Buffer(data.testUser.userCredentials.username + ':'
+                + data.testUser.userCredentials.password).toString('base64');
+        var params = {headers: {'Authorization': auth}};
+
+        it("should authenticate previously created User, correct credentials", function () {
+            var response = chakram.get(env.url + "/api/me", params);
+            expect(response).to.have.status(200);
+            return chakram.wait();
+        });
+    });
+
     describe("Update User", function () {
         var response;
 
@@ -25,7 +37,7 @@ describe("DHIS2 API - Users Module", function () {
             return response;
         });
 
-        it("should update an existent User", function () {
+        it("should be possible to update the password with a new valid password", function () {
             expect(response).to.have.status(200);
             expect(response).to.have.json('pager.total', 1);
             expect(response).to.have.json('users[0].displayName', 'Paulo Grácio');
@@ -33,6 +45,57 @@ describe("DHIS2 API - Users Module", function () {
             expect(response).to.have.json(function (json) {
 
                 var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserUpdated, env.auth);
+
+                expect(updateResponse).to.have.status(200);
+                expect(updateResponse).not.to.have.header('non-existing-header');
+                expect(updateResponse).to.have.json('importCount.updated', 1);
+
+                return chakram.wait();
+            });
+            return chakram.wait();
+        });
+    });
+
+    describe("Authenticate User", function () {
+        var oldAuth = 'Basic ' + new Buffer(data.testUser.userCredentials.username + ':'
+                + data.testUser.userCredentials.password).toString('base64');
+        var oldParams = {headers: {'Authorization': oldAuth}, Accept: 'application/json'};
+
+        var auth = 'Basic ' + new Buffer(data.testUserUpdated.userCredentials.username + ':'
+                + data.testUserUpdated.userCredentials.password).toString('base64');
+        var params = {headers: {'Authorization': auth}};
+
+        it("should authenticate updated User using new credentials", function () {
+            var response = chakram.get(env.url + "/api/me", params);
+            expect(response).to.have.status(200);
+            return chakram.wait();
+        });
+
+        it("should fail authentication for updated User using old credentials", function () {
+            var response = chakram.get(env.url + "/api/me", oldParams);
+            expect(response).to.have.status(401);
+            expect(response).to.have.header("content-type", "text/html;charset=utf-8");
+            return chakram.wait();
+        });
+    });
+
+    describe("Update User", function () {
+        var response;
+
+        before(function () {
+            response = chakram.get(env.url + "/api/users?query=pgracio", env.auth);
+            return response;
+        });
+
+        it("should not be possible update the password with an invalid password", function () {
+            expect(response).to.have.status(200);
+            expect(response).to.have.json('pager.total', 1);
+
+            expect(response).to.have.json(function (json) {
+                var auth = 'Basic ' + new Buffer(data.testUserUpdated.userCredentials.username + ':'
+                        + data.testUserUpdated.userCredentials.password).toString('base64');
+                var params = {headers: {'Authorization': auth}};
+                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserInvalidPassword, params);
 
                 expect(updateResponse).to.have.status(200);
                 expect(updateResponse).not.to.have.header('non-existing-header');
@@ -57,7 +120,7 @@ describe("DHIS2 API - Users Module", function () {
             expect(response).to.have.json('users[0].displayName', data.testUserUpdated.firstName + " " + data.testUserUpdated.surname);
 
             expect(response).to.have.json(function (json) {
-                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(200);
+                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(204);
                 return chakram.wait();
             });
             return chakram.wait();
@@ -67,13 +130,13 @@ describe("DHIS2 API - Users Module", function () {
             expect(chakram.delete(env.url + "/api/users/invalidID", null, env.auth)).to.have.status(404);
             return chakram.wait();
         });
-    })
+    });
 
     describe("Delete Admin User", function () {
         var response;
 
         before(function () {
-            response = chakram.get(env.url + "/api/users?query=admin", env.auth);
+            response = chakram.get(env.url + "/api/users?query=system", env.auth);
         });
 
         it("should delete the user", function () {
@@ -81,7 +144,7 @@ describe("DHIS2 API - Users Module", function () {
             expect(response).to.have.json('pager.total', 1);
 
             expect(response).to.have.json(function (json) {
-                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(200);
+                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(500);
                 return chakram.wait();
             });
             return chakram.wait();
