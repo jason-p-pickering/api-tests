@@ -8,13 +8,16 @@ http://dareid.github.io/chakram/
 
 Prerequisites
 -------------
-* [Install Docker](http://docs.docker.com/engine/installation/ "Documentation") 
+* [Install Docker Engine](https://docs.docker.com/engine/installation/ "Documentation") 
+* [Install Docker Compose](https://docs.docker.com/compose/install/ "Documentation") 
 * [Install npm](https://docs.npmjs.com/getting-started/what-is-npm/ "Documentation") 
 * [Chakram Getting started](https://github.com/dareid/chakram#getting-started/ "Documentation") 
 
+Docker Compose file uses version 2 syntax, it require Compose 1.6.0+ and a Docker Engine of version 1.10.0+.
+
 Execute
 -------------
-First run docker-compose, to start DHIS2 and a clean PostgreSQL in two docker containers.  
+First run docker-compose, to start DHIS2 and a PostgreSQL in two docker containers.  
 
 This will fetch pgracio/dhis2-web:latest and postgres:9.5.3 docker images from Docker Hub before start the containers.
 
@@ -25,7 +28,7 @@ $ docker-compose up -d
 Wait for the container to start. To see the logs just run.
 
 ```
-$ docker logs -f dhis2-web
+$ docker-compose logs -f
 ```
 
 Once it started application should be listening on por 8085
