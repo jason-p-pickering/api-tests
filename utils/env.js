@@ -1,5 +1,17 @@
+var host = process.env.DHIS_HOST;
+var port = process.env.DHIS_PORT;
+
+if (typeof host == 'undefined' || !host) {
+    host = 'localhost'
+}
+if (typeof port == 'undefined' || !port) {
+    port = 8085
+}
+
 module.exports = {
-    url: "http://localhost:8085", //localhost:8085
+    url: "http://" + host + ":" + port,
+    api: '/api/',
+    api23: '/api/23/',
     auth: {
         headers: {
             'Content-Type': 'application/json',
