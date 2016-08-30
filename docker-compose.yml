@@ -21,3 +21,16 @@ services:
       - database
     entrypoint: ./wait-for-it.sh -t 0 database:5432 --
     command: catalina.sh run # https://github.com/docker/compose/issues/3140
+  api-tests:
+    container_name: dhis2-api-tests
+    #build: .
+    image: pgracio/dhis2-api-tests:0.0.2
+    environment:
+      DHIS_HOST: web
+      DHIS_PORT: 8080
+    links:
+      - web
+    depends_on:
+      - web
+    entrypoint: dockerize -wait http://web:80 -timeout 10m
+    command: ./run.sh
