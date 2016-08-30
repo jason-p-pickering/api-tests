@@ -12,7 +12,7 @@ services:
     container_name: dhis2-web
     image: pgracio/dhis2-web:2.24-tomcat7-jre8
     environment:
-      JAVA_OPTS: "-Xmx512m -Xms1024m"
+      JAVA_OPTS: "-Xmx1024m -Xms2048m"
     links:
       - database
     ports:
@@ -32,5 +32,5 @@ services:
       - web
     depends_on:
       - web
-    entrypoint: dockerize -wait http://web:80 -timeout 10m
+    entrypoint: dockerize -wait http://web:80 -timeout 20m
     command: ./run.sh
