@@ -2,7 +2,7 @@ version: '2'
 services:
   database:
     container_name: dhis2-database
-    image: pgracio/dhis2-db:2.23-sierra-leone-postgres9.5
+    image: pgracio/dhis2-db:2.24-sierra-leone
     environment:
       POSTGRES_USER: dhis
       POSTGRES_DB: dhis
@@ -10,9 +10,9 @@ services:
       PG_DATA: /var/lib/postgresql/data/pgdata
   web:
     container_name: dhis2-web
-    image: pgracio/dhis2-web:trunk-tomcat7-jre8
+    image: pgracio/dhis2-web:2.24-tomcat7-jre8
     environment:
-      JAVA_OPTS: "-Xmx1024m -Xms4000m"
+      JAVA_OPTS: "-Xmx512m -Xms1024m"
     links:
       - database
     ports:
