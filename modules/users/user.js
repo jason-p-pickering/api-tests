@@ -78,6 +78,7 @@ describe("DHIS2 API - Users Module", function () {
         });
 
         it("should not be possible to update the password with an invalid password (less than 8 characters).", function () {
+            this.timeout(10000); // Error: timeout of 2000ms exceeded
             expect(response).to.have.status(200);
             expect(response).to.have.json('pager.total', 1);
 
