@@ -9,6 +9,7 @@ describe("DHIS2 API - Users Module", function () {
     describe("Create User", function () {
         // TODO: the second time the test is executed it fails. Delete user if user exists before create?
         it("should create a new User", function () {
+            this.timeout(10000); // Error: timeout of 2000ms exceeded
             var response = chakram.post(env.url + "/api/users", data.testUser, env.auth);
 
             expect(response).to.have.status(200);
