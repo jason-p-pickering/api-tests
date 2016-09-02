@@ -24,7 +24,7 @@ services:
   api-tests:
     container_name: dhis2-api-tests
     #build: .
-    image: pgracio/dhis2-api-tests:0.0.2
+    image: pgracio/dhis2-api-tests:0.0.3
     environment:
       DHIS_HOST: web
       DHIS_PORT: 8080
