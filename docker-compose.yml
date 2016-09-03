@@ -10,7 +10,7 @@ services:
       PG_DATA: /var/lib/postgresql/data/pgdata
   web:
     container_name: dhis2-web
-    image: pgracio/dhis2-web:2.24-tomcat7-jre8
+    image: dhis2/dhis2-web:2.24-tomcat7-jre8-latest
     environment:
       JAVA_OPTS: "-Xmx1024m -Xms2048m"
     links:
