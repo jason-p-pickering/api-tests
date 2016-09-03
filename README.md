@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dhis2/api-tests.svg?branch=master)](https://travis-ci.org/dhis2/dhis2-api-tests)
+[![Build Status](https://travis-ci.org/dhis2/api-tests.svg?branch=master)](https://travis-ci.org/dhis2/api-tests)
 
 DHIS2 API System Test
 ==============
