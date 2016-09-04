@@ -23,8 +23,8 @@ services:
     command: catalina.sh run # https://github.com/docker/compose/issues/3140
   api-tests:
     container_name: dhis2-api-tests
-    #build: .
-    image: pgracio/dhis2-api-tests:0.0.4
+    build: .
+    image: dhis2/dhis2-api-tests
     environment:
       DHIS_HOST: web
       DHIS_PORT: 8080
