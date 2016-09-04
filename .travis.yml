@@ -3,4 +3,5 @@ services:
   - docker
 
 script:
+  - docker-compose build
   - docker-compose run api-tests
