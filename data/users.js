@@ -1,6 +1,8 @@
+var faker = require('faker');
+
 module.exports = {
     testUser: {
-        firstName: "Paulo",
+        firstName: faker.name.firstName(),
         surname: "Grácio",
         email: "paulo.gracio@dhis2.com",
         userCredentials: {
