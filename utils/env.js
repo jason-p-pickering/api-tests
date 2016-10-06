@@ -11,6 +11,7 @@ if (typeof port == 'undefined' || !port) {
 module.exports = { //TODO: this would be more of conf than util.
     url: "http://" + host + ":" + port,
     api: "/api/",
+    api23: '/api/23/',
     version: "",
     properRequestParams: {
         headers: {
