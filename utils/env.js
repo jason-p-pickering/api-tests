@@ -26,5 +26,11 @@ module.exports = { //TODO: this would be more of conf than util.
             Accept: 'application/xml',
             Authorization: 'Basic YWsdsRtaW4xOmRpc3RyaWN0'
         }
+    },
+    properResponseParamsXML: {
+        headers: {
+            Accept: 'application/xml',
+            Authorization: 'Basic YWRtaW46ZGlzdHJpY3Q='
+        }
     }
 };

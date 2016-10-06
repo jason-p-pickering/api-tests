@@ -9,7 +9,7 @@ describe("DHIS2 API - Import-Export Module", function () {
         it("should export id and displayName for all data elements, ordered by displayName", function () {
             this.timeout(10000);
             var filter = "?dataElements:fields=id,name&dataElements:order=displayName:desc";
-            var response = chakram.get(env.url + "/api/23/metadata" + filter, env.auth);
+            var response = chakram.get(env.url + "/api/23/metadata" + filter, env.properRequestParams);
 
             expect(response).to.have.status(200);
             expect(response).to.have.json(function (json) {
