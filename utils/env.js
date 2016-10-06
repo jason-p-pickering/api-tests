@@ -5,7 +5,7 @@ if (typeof host == 'undefined' || !host) {
     host = 'localhost'
 }
 if (typeof port == 'undefined' || !port) {
-    port = 8080
+    port = 8085
 }
 
 module.exports = { //TODO: this would be more of conf than util.
