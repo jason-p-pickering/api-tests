@@ -8,18 +8,26 @@ if (typeof port == 'undefined' || !port) {
     port = 8085
 }
 
-module.exports = {
+module.exports = { //TODO: this would be more of conf than util.
     url: "http://" + host + ":" + port,
-    api: '/api/',
+    api: "/api/",
     api23: '/api/23/',
-    auth: {
+    version: "",
+    properRequestParams: {
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: 'Basic YWRtaW46ZGlzdHJpY3Q='
         }
     },
-    authXML: {
+    improperRequestParams: {
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/xml',
+            Authorization: 'Basic YWsdsRtaW4xOmRpc3RyaWN0'
+        }
+    },
+    properResponseParamsXML: {
         headers: {
             Accept: 'application/xml',
             Authorization: 'Basic YWRtaW46ZGlzdHJpY3Q='

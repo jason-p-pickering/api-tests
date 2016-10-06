@@ -10,7 +10,7 @@ describe("DHIS2 API - Users Module", function () {
         // TODO: the second time the test is executed it fails. Delete user if user exists before create?
         it("should create a new User", function () {
             this.timeout(10000); // Error: timeout of 2000ms exceeded
-            var response = chakram.post(env.url + "/api/users", data.testUser, env.auth);
+            var response = chakram.post(env.url + "/api/users", data.testUser, env.properRequestParams);
 
             expect(response).to.have.status(200);
             expect(response).not.to.have.header('non-existing-header');
@@ -20,7 +20,7 @@ describe("DHIS2 API - Users Module", function () {
     });
 
     describe("Authenticate User", function () {
-        it("should authenticate previously created User, correct credentials", function () {
+        it("should properRequestParamsenticate previously created User, correct credentials", function () {
             var response = chakram.get(env.url + "/api/me", utils.buildParams(data.testUser));
             expect(response).to.have.status(200);
             return chakram.wait();
@@ -31,7 +31,7 @@ describe("DHIS2 API - Users Module", function () {
         var response;
 
         before(function () {
-            response = chakram.get(env.url + "/api/users?query=paulo", env.auth);
+            response = chakram.get(env.url + "/api/users?query=paulo", env.properRequestParams);
             return response;
         });
 
@@ -42,7 +42,7 @@ describe("DHIS2 API - Users Module", function () {
 
             expect(response).to.have.json(function (json) {
 
-                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserUpdated, env.auth);
+                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserUpdated, env.properRequestParams);
 
                 expect(updateResponse).to.have.status(200);
                 expect(updateResponse).not.to.have.header('non-existing-header');
@@ -55,13 +55,13 @@ describe("DHIS2 API - Users Module", function () {
     });
 
     describe("Authenticate User", function () {
-        it("should authenticate updated User using new credentials", function () {
+        it("should properRequestParamsenticate updated User using new credentials", function () {
             var response = chakram.get(env.url + "/api/me", utils.buildParams(data.testUserUpdated));
             expect(response).to.have.status(200);
             return chakram.wait();
         });
 
-        it("should fail authentication for updated User using old credentials", function () {
+        it("should fail properRequestParamsentication for updated User using old credentials", function () {
             var response = chakram.get(env.url + "/api/me", utils.buildParams(data.testUser));
             expect(response).to.have.status(401);
             expect(response).to.have.header("content-type", "text/html;charset=utf-8");
@@ -73,7 +73,7 @@ describe("DHIS2 API - Users Module", function () {
         var response;
 
         before(function () {
-            response = chakram.get(env.url + "/api/users?query=pgracio", env.auth);
+            response = chakram.get(env.url + "/api/users?query=pgracio", env.properRequestParams);
             return response;
         });
 
@@ -83,7 +83,7 @@ describe("DHIS2 API - Users Module", function () {
             expect(response).to.have.json('pager.total', 1);
 
             expect(response).to.have.json(function (json) {
-                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserInvalidPassword, env.auth);
+                var updateResponse = chakram.put(env.url + "/api/users/" + json.users[0].id, data.testUserInvalidPassword, env.properRequestParams);
 
                 expect(updateResponse).to.have.status(200);
                 expect(updateResponse).not.to.have.header('non-existing-header');
@@ -99,7 +99,7 @@ describe("DHIS2 API - Users Module", function () {
         var response;
 
         before(function () {
-            response = chakram.get(env.url + "/api/users?query=paulo", env.auth);
+            response = chakram.get(env.url + "/api/users?query=paulo", env.properRequestParams);
         });
 
         it("should delete an existent User", function () {
@@ -108,14 +108,14 @@ describe("DHIS2 API - Users Module", function () {
             expect(response).to.have.json('users[0].displayName', data.testUserUpdated.firstName + " " + data.testUserUpdated.surname);
 
             expect(response).to.have.json(function (json) {
-                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(204);
+                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.properRequestParams)).to.have.status(204);
                 return chakram.wait();
             });
             return chakram.wait();
         });
 
         it("should return 404 - Not Found, when deleting a User that doesn't exist", function () {
-            expect(chakram.delete(env.url + "/api/users/invalidID", null, env.auth)).to.have.status(404);
+            expect(chakram.delete(env.url + "/api/users/invalidID", null, env.properRequestParams)).to.have.status(404);
             return chakram.wait();
         });
     });
@@ -124,7 +124,7 @@ describe("DHIS2 API - Users Module", function () {
         var response;
 
         before(function () {
-            response = chakram.get(env.url + "/api/users?query=system", env.auth);
+            response = chakram.get(env.url + "/api/users?query=system", env.properRequestParams);
         });
 
         it("should delete the user", function () {
@@ -132,7 +132,7 @@ describe("DHIS2 API - Users Module", function () {
             expect(response).to.have.json('pager.total', 1);
 
             expect(response).to.have.json(function (json) {
-                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.auth)).to.have.status(500);
+                expect(chakram.delete(env.url + "/api/users/" + json.users[0].id, null, env.properRequestParams)).to.have.status(500);
                 return chakram.wait();
             });
             return chakram.wait();
