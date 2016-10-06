@@ -5,24 +5,25 @@ if (typeof host == 'undefined' || !host) {
     host = 'localhost'
 }
 if (typeof port == 'undefined' || !port) {
-    port = 8085
+    port = 8080
 }
 
-module.exports = {
+module.exports = { //TODO: this would be more of conf than util.
     url: "http://" + host + ":" + port,
-    api: '/api/',
-    api23: '/api/23/',
-    auth: {
+    api: "/api/",
+    version: "",
+    properRequestParams: {
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: 'Basic YWRtaW46ZGlzdHJpY3Q='
         }
     },
-    authXML: {
+    improperRequestParams: {
         headers: {
+            'Content-Type': 'application/json',
             Accept: 'application/xml',
-            Authorization: 'Basic YWRtaW46ZGlzdHJpY3Q='
+            Authorization: 'Basic YWsdsRtaW4xOmRpc3RyaWN0'
         }
     }
 };
