@@ -6,16 +6,15 @@ var chakram = require('chakram'),
 
 describe("metadata create version API", function () {
     it("should fail to create atomic version when there is no proper authorization", function () {
-        chakram.post(createVersionURL + data.typeAtomic, {}, env.improperRequestParams)
-            .then(function (response) {
-            console.log(response)
-            });
-       // expect(response).to.have.header('Content-Disposition', 'attachment; filename="metadata.json.gz"');
-        expect(response).to.have.status(401);
-        return chakram.wait();
+        var response = chakram.post(createVersionURL + data.typeAtomic, {}, env.improperRequestParams);
+       return  response.then(function (data) {
+            console.log('then here', arguments)
+            return expect(response).to.have.status(401);
+
+        })
     });
 //TODO: use one more 'descibe' to describe a scenario. 'it' should only have the behavior. extract all whens to descibe.
-    xit("should fail to create best_effort version when there is no proper authorization", function () {
+    it("should fail to create best_effort version when there is no proper authorization", function () {
         var response = chakram.post(createVersionURL + data.typeBestEffort, {}, env.improperRequestParams);
         expect(response).to.have.status(401);
         return chakram.wait();

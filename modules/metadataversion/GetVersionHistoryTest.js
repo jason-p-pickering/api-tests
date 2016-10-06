@@ -14,13 +14,13 @@ describe("get metadata version history API", function () {
         return chakram.wait();
     });
 
-    xit("should give error status code as 401", function () {
+    it("should give error status code as 401", function () {
         var response = chakram.get(versionBaselineURL + data.nameVersion5, env.improperRequestParams);
         expect(response).to.have.status(401);
         return chakram.wait();
     });
 
-    xit("should give error status code as 401", function () {
+    it("should give error status code as 401", function () {
         var response = chakram.get(versionHistoryURL, env.improperRequestParams);
         expect(response).to.have.status(401);
         return chakram.wait();
