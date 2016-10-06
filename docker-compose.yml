@@ -33,4 +33,3 @@ services:
     depends_on:
       - web
     entrypoint: dockerize -wait http://web:8080 -timeout 10m
-    command: ./run.sh
