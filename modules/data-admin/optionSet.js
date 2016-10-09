@@ -7,7 +7,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
 
     describe("Create a valid Option", function () {
         it("should be able to create a new Option", function () {
-            this.timeout(5000);
             var payload = {code: '0', name: 'Zero'};
             var response = chakram.post(env.url + env.api + "options", payload, env.auth);
 
@@ -23,7 +22,7 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
         var optionId;
 
         before(function () {
-            optionResponse = chakram.get(env.url + "/api/options?filter=displayName:eq:Zero", env.auth);
+            optionResponse = chakram.get(env.url + env.api + "options?filter=displayName:eq:Zero", env.auth);
             optionResponse.then(function (respObj) {
                 optionId = respObj.body.options[0].id;
             });
@@ -32,7 +31,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
         });
 
         it("should be able to create a new Option Set named 'Test Option Set' without Options", function () {
-            this.timeout(10000);
             /**
              * [UNIT_INTERVAL, LETTER, BOOLEAN, NUMBER, TEXT, DATE, LONG_TEXT, FILE_RESOURCE, USERNAME,
              * TRACKER_ASSOCIATE, COORDINATE, INTEGER_POSITIVE, DATETIME, EMAIL, TRUE_ONLY, INTEGER,
@@ -62,7 +60,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
         });
 
         it("should be able to update existent Option Set code from 'TEST_OPTION_SET' to 'TEST_OPTION_SET_NEW'", function () {
-            this.timeout(10000);
             var optionSetResponse = chakram.get(env.url + "/api/optionSets?filter=code:eq:TEST_OPTION_SET", env.auth);
 
             expect(optionSetResponse).to.have.json(function (json) {
@@ -79,7 +76,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
         });
 
         it("shouldn't be able to update existent Option Set type from 'INTEGER' to 'TEXT'", function () {
-            this.timeout(10000);
             var optionSetResponse = chakram.get(env.url + "/api/optionSets?filter=code:eq:TEST_OPTION_SET_NEW", env.auth);
 
             expect(optionSetResponse).to.have.json(function (json) {
@@ -97,7 +93,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
         });
 
         it("should be able to create a new Option Set named 'Test Option Set02' with Option", function () {
-            this.timeout(10000);
             var payload = {
                 name: 'Test Option Set02', code: 'TEST_OPTION_SET02', valueType: 'INTEGER',
                 options: [{id: optionId}]
@@ -113,8 +108,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
     });
 
     describe("Add Option to Option Set", function () {
-        this.timeout(10000);
-
         var optionResponse;
         var optionSetResponse;
 
