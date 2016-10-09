@@ -17,6 +17,8 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
     });
 
     describe("Create Option Set", function () {
+        chakram.startDebug();
+
         var optionResponse;
         var optionId;
 
@@ -59,7 +61,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
 
         it("should be able to update existent Option Set code from 'TEST_OPTION_SET' to 'TEST_OPTION_SET_NEW'", function () {
             var optionSetResponse = chakram.get(env.url + "/api/optionSets?filter=code:eq:TEST_OPTION_SET", env.properRequestParams);
-            chakram.startDebug();
             expect(optionSetResponse).to.have.json(function (json) {
                 var optionSetId = json.optionSets[0].id;
                 var payload = {name: 'Test Option Set New', code: 'TEST_OPTION_SET_NEW'};
@@ -70,7 +71,6 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
 
                 return chakram.wait();
             });
-            chakram.stopDebug();
             return chakram.wait();
         });
 
@@ -108,6 +108,7 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
     });
 
     describe("Add Option to Option Set", function () {
+        chakram.startDebug();
         var optionResponse;
         var optionSetResponse;
 
