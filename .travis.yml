@@ -3,7 +3,11 @@ services:
   - docker
 
 env:
+  - DB_TAG=2.23-sierra-leone WEB_TAG=2.23-tomcat7-jre8-latest
   - DB_TAG=2.24-sierra-leone WEB_TAG=2.24-tomcat7-jre8-latest
 
+before_script:
+  - docker-compose build api-tests
+
 script:
-  - docker-compose run api-tests ./run.sh USER
+  - docker-compose run api-tests ./run.sh USER DATA_ADMIN

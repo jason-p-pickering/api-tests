@@ -2,13 +2,14 @@
 set -e
 
 print_usage() {
-    echo "Executes test cases for the given scenarios."
+    echo "Executes test cases for the given Test Suites - TS."
+    echo "A TS is a collection of test cases that are intended to be used to test a specific DHIS2 module or functionality."
     echo
     echo "Usage: "
     echo "  $0 [scenarios...]"
     echo "  $0  -h|--help"
     echo
-    echo "Scenarios:"
+    echo "Test Suites:"
     echo "  USER                DHIS2 API - Users Module."
     echo "  DATA_ADMIN          DHIS2 API - Data Administration."
     echo "  OTHER               This needs some care, please implement."
@@ -33,7 +34,7 @@ function execute_test() {
             ;;
 
         DATA_ADMIN)
-            mocha modules/data-admin/optionSet.js
+            mocha modules/data-admin/optionSet.js --timeout 10000
             ;;
 
         OTHER)
