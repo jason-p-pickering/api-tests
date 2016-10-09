@@ -98,7 +98,7 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
                 options: [{id: optionId}]
             };
 
-            var response = chakram.post(env.url + env.api + "optionSets", payload, env.auth);
+            var response = chakram.post(env.url + env.api + "optionSets", payload, env.properRequestParams);
             expect(response).to.have.status(200);
             expect(response).to.have.json('message', 'Import was successful.');
             expect(response).to.have.json('response.importCount.imported', 1);
@@ -113,8 +113,8 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
         var optionSetResponse;
 
         before(function () {
-            optionResponse = chakram.get(env.url + "/api/options?filter=displayName:eq:Zero", env.auth);
-            optionSetResponse = chakram.get(env.url + "/api/optionSets?filter=code:eq:TEST_OPTION_SET_NEW", env.auth);
+            optionResponse = chakram.get(env.url + "/api/options?filter=displayName:eq:Zero", env.properRequestParams);
+            optionSetResponse = chakram.get(env.url + "/api/optionSets?filter=code:eq:TEST_OPTION_SET_NEW", env.properRequestParams);
         });
 
         it("should be able to add Option to Option Set", function () {
@@ -127,7 +127,7 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
             return chakram.all([optionResponse,optionSetResponse]).then(function(responses) {
                 var payload = {name: 'Test Option Set New', options: [{id: responses[0].body.options[0].id}]};
 
-                var updateResponse = chakram.put(env.url + env.api + "optionSets/" + responses[1].body.optionSets[0].id, payload, env.auth);
+                var updateResponse = chakram.put(env.url + env.api + "optionSets/" + responses[1].body.optionSets[0].id, payload, env.properRequestParams);
                 expect(updateResponse).to.have.status(200);
                 expect(updateResponse).to.have.json('message', 'Import was successful.');
                 expect(updateResponse).to.have.json('response.importCount.updated', 1);
