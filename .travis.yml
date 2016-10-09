@@ -6,4 +6,4 @@ env:
   - DB_TAG=2.24-sierra-leone WEB_TAG=2.24-tomcat7-jre8-latest
 
 script:
-  - docker-compose run api-tests ./run.sh user
+  - docker-compose run api-tests ./run.sh USER DATA_ADMIN

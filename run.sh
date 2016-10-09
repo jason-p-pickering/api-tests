@@ -9,8 +9,9 @@ print_usage() {
     echo "  $0  -h|--help"
     echo
     echo "Scenarios:"
-    echo "  USER        DHIS2 API - Users Module"
-    echo "  OTHER       This needs some care, please implement."
+    echo "  USER                DHIS2 API - Users Module."
+    echo "  DATA_ADMIN          DHIS2 API - Data Administration."
+    echo "  OTHER               This needs some care, please implement."
 }
 
 function validate_input() {
@@ -29,6 +30,10 @@ function execute_test() {
     case $scenario in
         USER)
             mocha modules/users/user.js
+            ;;
+
+        DATA_ADMIN)
+            mocha modules/data-admin/optionSet.js
             ;;
 
         OTHER)
