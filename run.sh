@@ -29,7 +29,7 @@ function execute_test() {
 
     case $scenario in
         USER)
-            mocha modules/users/user.js
+            mocha modules/users/user.js --timeout 10000
             ;;
 
         DATA_ADMIN)
