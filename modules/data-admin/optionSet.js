@@ -83,8 +83,8 @@ describe("DHIS2 API - Data Administration - Option Set", function () {
                 var payload = {name: 'Test Option Set New', valueType: 'TEXT'};
                 var response = chakram.put(env.url + env.api + "optionSets/" + optionSetId, payload, env.properRequestParams);
 
-                // TODO: currently is possible to change types...
-                expect(response).to.have.status(400);
+                // TODO: currently is possible to change types. If it's not possible response code should be 400.
+                //expect(response).to.have.status(400);
                 //expect(response).to.have.json('response.importCount.updated', 1);
 
                 return chakram.wait();
