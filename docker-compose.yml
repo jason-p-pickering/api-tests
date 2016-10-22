@@ -34,9 +34,7 @@ services:
       DHIS_PORT: 8080
     links:
       - web
-      - web-target
     depends_on:
       - web
-      - web-target
     # TODO: check also web-target?
     entrypoint: dockerize -wait http://web:8080 -timeout 10m
