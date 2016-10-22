@@ -32,7 +32,7 @@ services:
     links:
       - database
     ports:
-      - "8085:8090"
+      - "8095:8080"
     depends_on:
       - database
     entrypoint: ./wait-for-it.sh -t 0 database:5432 --
