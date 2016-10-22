@@ -9,8 +9,6 @@ services:
       POSTGRES_DB: dhis
       POSTGRES_DB_TARGET: dhis-target
       PG_DATA: /var/lib/postgresql/data/pgdata
-    ports:
-     - "5432:5432"
   web:
     container_name: dhis2-web
     image: dhis2/dhis2-web:${WEB_TAG}
