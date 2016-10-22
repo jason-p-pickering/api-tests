@@ -5,14 +5,16 @@ services:
     image: pgracio/dhis2-db:${DB_TAG}
     environment:
       POSTGRES_USER: dhis
-      POSTGRES_DB: dhis
       POSTGRES_PASSWORD: dhis
+      POSTGRES_DB: dhis
+      POSTGRES_DB_TARGET: dhis-target
       PG_DATA: /var/lib/postgresql/data/pgdata
   web:
     container_name: dhis2-web
     image: dhis2/dhis2-web:${WEB_TAG}
     environment:
       JAVA_OPTS: "-Xmx1024m -Xms2048m"
+      POSTGRES_DB: dhis
     links:
       - database
     ports:
@@ -26,10 +28,15 @@ services:
     build: .
     image: dhis2/dhis2-api-tests
     environment:
+      # TODO: DHIS_HOST_TARGET
+      # TODO: DHIS_PORT_TARGET
       DHIS_HOST: web
       DHIS_PORT: 8080
     links:
       - web
+      - web-target
     depends_on:
       - web
+      - web-target
+    # TODO: check also web-target?
     entrypoint: dockerize -wait http://web:8080 -timeout 10m
