@@ -3,9 +3,10 @@ services:
   - docker
 
 env:
-  - DB_TAG=2.23-sierra-leone WEB_TAG=2.23-tomcat7-jre8-latest
-  - DB_TAG=2.24-sierra-leone WEB_TAG=2.24-tomcat7-jre8-latest
-  - DB_TAG=2.25-sierra-leone WEB_TAG=2.25-tomcat7-jre8-latest
+  #- DB_TAG=2.23-sierra-leone WEB_TAG=2.23-tomcat7-jre8-latest
+  #- DB_TAG=2.24-sierra-leone WEB_TAG=2.24-tomcat7-jre8-latest
+  #- DB_TAG=2.25-sierra-leone WEB_TAG=2.25-tomcat7-jre8-latest
+  - DB_TAG=2.26-sierra-leone WEB_TAG=2.26-tomcat7-jre8-latest
 
 before_script:
   - docker-compose build api-tests
